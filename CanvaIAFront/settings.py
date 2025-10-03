@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',  # <-- Agrega esta línea
+
 ]
 
 MIDDLEWARE = [
@@ -53,17 +55,19 @@ ROOT_URLCONF = 'CanvaIAFront.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [],  # O donde tengas tus plantillas
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',   # <- importante para admin y navegación
+                'django.contrib.auth.context_processors.auth',  # <- necesario para la autenticación
+                'django.contrib.messages.context_processors.messages',  # <- necesario para mensajes
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'CanvaIAFront.wsgi.application'
 
@@ -123,7 +127,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import os
 
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*']  # O agrega tu dominio
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

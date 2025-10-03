@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Usuario - Enviar Mensaje</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .panel {
+            background: #ffffff31;
+            padding: 30px;
+            border-radius: 3px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 80% !important;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .back-button {
+            font-weight: bold;
+            color: #333;
+            position: absolute;
+            top: 30px;
+            left: 35px;
+            border: none;
+            background: #ffffff00;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 1.8rem;
+            color: #333;
+            text-align: center;
+        }
+
+        textarea {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none; /* ← Esto lo hace inamovible */
+            font-size: 1rem;
+            font-family: inherit;
+            min-height: 20px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        textarea:focus,
+        textarea:hover {
+            border-color: #ccc; /* ← Borde constante (sin borde negro al hover o focus) */
+            box-shadow: none;
+        }
+
+
+        button[type="submit"] {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+        button[type="submit"]:disabled {
+            cursor: not-allowed;
+            background-color: #7baaf7;
+        }
+
+        #response {
+            margin-top: 25px;
+            background: #f1f1f1;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.95rem;
+            text-align: center;
+            min-height: 10px;
+        }
+
+        /* Loader CSS */
+        .loader {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #007bff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+        }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <button class="back-button" onclick="window.history.back()">Atrás</button>
+        <h1>¿Qué quieres crear hoy?</h1>
+        <form method="POST" id="messageForm">
+            {% csrf_token %}
+            <textarea name="message" placeholder="Escribe tu mensaje aquí..."></textarea>
+            <button type="submit" id="submitBtn">Enviar</button>
+        </form>
+
+        <div id="response"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('messageForm');
+        const responseDiv = document.getElementById('response');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Desactivar botón y mostrar loader
+            submitBtn.disabled = true;
+            responseDiv.innerHTML = '<div class="loader"></div><p>Generando imagen…</p>';
+
+            const formData = new FormData(form);
+
+            try {
+                const res = await fetch("", {
+                    method: "POST",
+                    headers: { 'X-CSRFToken': formData.get('csrfmiddlewaretoken') },
+                    body: formData,
+                });
+
+                const data = await res.json();
+
+                if (data.status === "success") {
+                    // 👇 Aquí cambiamos para leer la imagen dentro de "data.img"
+                    if (data.data && data.data.img) {
+                        responseDiv.innerHTML = `<strong>Imagen generada:</strong><br>
+                            <img src="${data.data.img}" alt="Imagen IA" style="max-width:100%;border-radius:8px;" />`;
+                    } else {
+                        responseDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    }
+                } else {
+                    responseDiv.innerHTML = `<strong>Error:</strong> ${data.message || 'unknown'}`;
+                }
+            } catch (err) {
+                responseDiv.innerHTML = `<strong>Excepción:</strong> ${err.message}`;
+            } finally {
+                // Reactivar botón
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+
+
+</body>
+</html>
