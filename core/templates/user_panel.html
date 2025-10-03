@@ -146,10 +146,13 @@
             const formData = new FormData(form);
 
             try {
-                const res = await fetch("", {
+                const res = await fetch("{% url 'user_panel' %}", {
                     method: "POST",
-                    headers: { 'X-CSRFToken': formData.get('csrfmiddlewaretoken') },
+                    headers: {
+                        "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+                    },
                     body: formData,
+                    credentials: "same-origin"  // 👈 necesario en producción
                 });
 
                 const data = await res.json();
