@@ -1,50 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>¡Bienvenido a CanvaIAFront!</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #6e8efb, #a777e3);
-            color: white;
-            margin: 0;
-            display: flex;
-            height: 100vh;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        h1 {
-            font-size: 3em;
-            margin-bottom: 0.5em;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-        }
-        p {
-            font-size: 1.5em;
-            margin-top: 0;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-        }
-        .btn {
-            margin-top: 2em;
-            background: #fff;
-            color: #6e8efb;
-            padding: 0.75em 2em;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: background-color 0.3s ease;
-        }
-        .btn:hover {
-            background: #dbe3ff;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>¡Bienvenido a CanvaIAFront!</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      color: white;
+      margin: 0;
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.5em;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      word-wrap: break-word;
+    }
+
+    p {
+      font-size: 1.5em;
+      margin-top: 0;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn {
+      margin-top: 2em;
+      background: #fff;
+      color: #6e8efb;
+      padding: 0.9em 2.5em;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-size: 1.2rem;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: #dbe3ff;
+      transform: translateY(-2px);
+    }
+
+    /* ✅ Responsive para tablets */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5em;
+      }
+      p {
+        font-size: 1.3em;
+      }
+      .btn {
+        font-size: 1.1rem;
+        padding: 0.8em 2em;
+      }
+    }
+
+    /* ✅ Responsive para móviles */
+    @media (max-width: 480px) {
+      body {
+        padding: 15px;
+      }
+      h1 {
+        font-size: 2em;
+        margin-bottom: 0.3em;
+      }
+      p {
+        font-size: 1.1em;
+      }
+      .btn {
+        width: 100%;
+        max-width: 300px;
+        font-size: 1rem;
+        padding: 0.8em;
+        border-radius: 25px;
+      }
+    }
+
+    /* ✅ Responsive para pantallas muy pequeñas */
+    @media (max-width: 360px) {
+      h1 {
+        font-size: 1.8em;
+      }
+      p {
+        font-size: 1em;
+      }
+      .btn {
+        font-size: 0.95rem;
+        padding: 0.7em;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>¡Bienvenido a CanvaIAFront!</h1>
-    <p>Canva Creator</p>
-    <a href="/panel/" class="btn">¡Crear!</a>
+  <h1>¡Bienvenido a CanvaIAFront!</h1>
+  <p>Canva Creator</p>
+  <a href="/panel/" class="btn">¡Crear!</a>
 </body>
 </html>

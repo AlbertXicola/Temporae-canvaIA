@@ -23,6 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0gu-tl@=2t-0a2*495hm9aj_m4*8o@9@f8=l!h4k^=6f9^*wy5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+CSRF_TRUSTED_ORIGINS = [
+    "https://whatsap-canva-ia-front.zedf6b.easypanel.host",
+]
 
 
 # Application definition
